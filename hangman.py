@@ -5,7 +5,7 @@ from gallows import draw_gallows
 from draw_hangman import draw_hangman
 
 def run_hangman():
-    """Runs the hangman game."""
+    """Runs the hangman game.""" 
     
     #Wordbank
     words = ['rainbow', 'computer', 'science', 'programming',

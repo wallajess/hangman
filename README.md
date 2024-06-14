@@ -1,2 +1,2 @@
-# hangman
-Hangman game using turtle
+# Hangman
+Hangman game using turtle.

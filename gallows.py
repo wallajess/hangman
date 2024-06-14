@@ -1,7 +1,7 @@
 import turtle as tk
 import time
 
-def draw_gallows() -> Vec2D:
+def draw_gallows():
     """Draws the gallows for the hangman"""
     tk.speed(0)
     tk.setup(1000, 2000, startx= 1000, starty= 3000)

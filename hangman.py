@@ -4,6 +4,26 @@ import random
 from gallows import draw_gallows
 from draw_hangman import draw_hangman
 
+def get_user_input(text_pos):
+    while True:
+        guess = tk.textinput("Make a guess", "Guess a letter: ")
+        if guess is None:
+            raise SystemExit("You did not enter anything. Game end.")
+        guess = guess.strip().lower()
+        if len(guess) != 1 or not guess.isalpha():
+            error_turtle = tk.Turtle()
+            error_turtle.hideturtle()
+            error_turtle.up()
+            error_turtle.setposition(text_pos)
+            error_turtle.down()
+            error_turtle.clear()
+            error_turtle.write("Invalid input. Please enter a single letter.", font=("Arial", 12, "normal"))
+            time.sleep(2)
+            error_turtle.clear()
+            time.sleep(3)       
+        else:
+            return guess
+
 def run_hangman():
     """Runs the hangman game.""" 
     
@@ -34,6 +54,7 @@ def run_hangman():
     
     # Create the solution word turtle object once
     sol_word = tk.Turtle()
+    sol_word.hideturtle()
     sol_word.up()
     sol_word.setposition(sol_pos)
     sol_word.down()
@@ -43,16 +64,34 @@ def run_hangman():
     while attempts < 6:
 
         if "".join(solution) == word:
-            tk.penup()
-            tk.setposition(text_pos)
-            tk.pendown()
-            tk.write("Congratulations! You've guessed the word!", font=("Arial", 12, "normal"))
-            time.sleep(3)
-            
+            you_won_turtle = tk.Turtle()
+            you_won_turtle.hideturtle()
+            you_won_turtle.up()
+            you_won_turtle.setposition(text_pos)
+            you_won_turtle.down()
+            you_won_turtle.clear()
+            you_won_turtle.write("Congratulations, you guessed the word!", font=("Arial", 12, "normal"))
+            time.sleep(3)       
             break
 
-        guess = tk.textinput("Make a guess", "Guess a letter: ")
+        try:
+            guess = get_user_input(text_pos)
+        except SystemExit as e:
+            print(e)
+            break
 
+        if guess in solution:
+            already_guessed_turtle = tk.Turtle()
+            already_guessed_turtle.hideturtle()
+            already_guessed_turtle.up()
+            already_guessed_turtle.setposition(text_pos)
+            already_guessed_turtle.down()
+            already_guessed_turtle.clear()
+            already_guessed_turtle.write("You already guess that letter. Try agian.", font=("Arial", 12, "normal"))
+            time.sleep(2)
+            already_guessed_turtle.clear()
+            time.sleep(3) 
+               
         # Counter for position of letter in the word
         i = 0
 
